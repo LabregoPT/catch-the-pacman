@@ -19,7 +19,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Scores">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#seeScores" text="See Scores" />
+                  <MenuItem mnemonicParsing="false" onAction="#showScores" text="Show Scores" />
                </items>
         </Menu>
       </menus>
