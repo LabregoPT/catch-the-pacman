@@ -1,8 +1,7 @@
 package ui;
 
-
 import javafx.scene.shape.*;
-import model.PacMan;
+import model.*;
 
 public class Controller{
 

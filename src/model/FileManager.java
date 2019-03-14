@@ -11,14 +11,8 @@ import ui.Controller;
  */
 public class FileManager {
 	
-	/**File that holds the data of a saved game*/
-	private File savedGame;
-	
 	/**Path to the saved game file*/
 	private String savedGamePath;
-	
-	/**File that holds the data of all scores scored in the game.*/
-	private File savedScores;
 	
 	/**File to the saved scores file*/
 	private String savedScoresPath;
@@ -35,21 +29,12 @@ public class FileManager {
 	 * @throws IOException when there's an error loading the files.
 	 * @throws ClassNotFoundException when there's an error casting the class in the files.
 	 */
-	@SuppressWarnings("unchecked")
 	public FileManager(Controller gui, String sgp, String ssp) throws IOException, ClassNotFoundException{
 		savedGamePath = sgp;
 		savedScoresPath = ssp;
-		savedGame = new File(savedGamePath);
-		savedScores = new File(savedScoresPath);
-		
 		//Verifies if there is already a file with the saved scores.
-		if(!savedScores.exists()) {
-			scores = new ArrayList<Score>();
-		}else {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedScores));
-			scores = (ArrayList<Score>)ois.readObject();
-			ois.close();
-		}
+		scores = new ArrayList<Score>();
+		loadScore();
 	}
 	
 	/**
@@ -92,10 +77,28 @@ public class FileManager {
 		scores.add(sc);
 	}
 	
-	/**Modifies the saved scores file.*/
+	/**
+	 * Modifies the saved scores file.
+	 * @throws IOException When there's an error with the input.
+	 */
 	public void saveScores() throws IOException{
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream (savedScores));
+		File f = new File(savedScoresPath);
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream (f));
 		oos.writeObject(scores);
 		oos.close();
+	}
+	
+	/**Loads the saved score file.
+	 * @throws IOException When there's an error with the input.
+	 * @throws ClassNotFoundException When there's an error loading the class. 
+	 */
+	@SuppressWarnings("unchecked")
+	public void loadScore() throws IOException, ClassNotFoundException {
+		File f = new File(savedScoresPath);
+		if(f.exists()) {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+			scores = (List<Score>)ois.readObject();
+			ois.close();
+		}
 	}
 }

@@ -1,11 +1,18 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Class meant to hold every Score registered by the user.
  * @author Jhon Edward Mora - Universidad ICESI - A00355710
  * @version 1.0 - March/2019
  */
-public class Score {
+public class Score implements Serializable{
+	
+	
+	/**Unic serial id*/
+	private static final long serialVersionUID = -2294215226042580082L;
+
 	/**The name registered by the user. */
 	private String name;
 	
