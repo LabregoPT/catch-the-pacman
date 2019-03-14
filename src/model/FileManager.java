@@ -89,7 +89,7 @@ public class FileManager {
 	 * @param sc The score to be recorded.
 	 */
 	public void addScore(Score sc) {
-		//To do
+		scores.add(sc);
 	}
 	
 	/**Modifies the saved scores file.*/
