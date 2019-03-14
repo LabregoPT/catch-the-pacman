@@ -61,4 +61,8 @@ public class FileManager {
 		//To do
 	}
 	
+	/**Modifies the saved scores file.*/
+	public void saveScores() {
+		//To do
+	}
 }
