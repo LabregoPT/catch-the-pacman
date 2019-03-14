@@ -3,6 +3,7 @@ package model;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
+import ui.*;
 
 /**
  * Class meant to act as the pacmen to be caught throughout the game.
@@ -18,19 +19,24 @@ public class PacMan extends Arc {
 	private double posX;
 	private double posY;
 	
+	//Relations
+	private Controller gui;
+	
 	/**
 	 * Creates a new PacMan and its design.
 	 * @param dir Initial movement direction of the PacMan
 	 * @param x Initial x position of the pacman.
 	 * @param y Initial y position of the pacman.
 	 */
-	public PacMan(int dir, int x, int y) {
+	public PacMan(int dir, int x, int y, Controller c) {
 		super(x, y, 40, 40, 45, 270);
 		super.setFill(Color.YELLOW);
 		eye = new Circle(x+15, y-15, 10, Color.BLACK);
 		direction = dir;
 		posX = getLayoutX();
 		posY = getLayoutY();
+		gui = c;
+		gui.draw(this, eye);
 	}
 	
 	/**
@@ -78,5 +84,37 @@ public class PacMan extends Arc {
 	 */
 	public void catchIt() {
 		alreadyCaught = true;
+	}
+	
+	/**
+	 * Return the number of times this instance of PacMan has bounced.
+	 * @return The total bounces of this PacMan
+	 */
+	public int getBounces() {
+		return bounces;
+	}
+	
+	/**
+	 * Adds one bounce to this PacMan.
+	 */
+	public void addBounce() {
+		bounces++;
+	}
+	
+	/**
+	 * Returns the X position of this PacMan
+	 * @return The Horizontal position of this PacMan
+	 */
+	public double getX() {
+		return posX;
+	}
+	
+	
+	/**
+	 * Returns the Y position of this PacMan
+	 * @return The Vertical position of this PacMan
+	 */
+	public double getY() {
+		return posY;
 	}
 }
