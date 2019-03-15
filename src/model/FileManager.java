@@ -32,16 +32,20 @@ public class FileManager {
 	public FileManager(Controller gui, String sgp, String ssp) throws IOException, ClassNotFoundException{
 		savedGamePath = sgp;
 		savedScoresPath = ssp;
-		//Verifies if there is already a file with the saved scores.
 		scores = new ArrayList<Score>();
 		loadScore();
 	}
 	
 	/**
 	 * Overwrites the saved game file and stores the current state of the game in it.
+	 * @throws FileNotFoundException When there's an error locating the saved game file. 
 	 */
-	public void saveGame() {
-		//To do
+	public void saveGame() throws FileNotFoundException{
+		File f = new File(savedGamePath);
+		String gameData = "";
+		PrintWriter pw = new PrintWriter(f);
+		pw.print(gameData);
+		pw.close();
 	}
 	
 	/**
