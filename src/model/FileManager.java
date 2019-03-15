@@ -11,6 +11,14 @@ import ui.Controller;
  */
 public class FileManager {
 	
+	//Constants
+	/**Stores the path where the saved games are located."*/
+	private static final String SAVE_PATH = "data/save.txt";
+	
+	/**Stores the path where the saved scores are located."*/
+	private static final String SCORE_PATH = "data/scores.dat";
+	
+	//Attributes
 	/**Path to the saved game file*/
 	private String savedGamePath;
 	
@@ -19,7 +27,9 @@ public class FileManager {
 	
 	//Relations
 	/**List of all registered scores. Cannot be changed.*/
-	public List<Score> scores;
+	private List<Score> scores;
+	
+	private Controller gui;
 	
 	/**
 	 * Creates an instance of FileManager.
@@ -29,9 +39,10 @@ public class FileManager {
 	 * @throws IOException when there's an error loading the files.
 	 * @throws ClassNotFoundException when there's an error casting the class in the files.
 	 */
-	public FileManager(Controller gui, String sgp, String ssp) throws IOException, ClassNotFoundException{
-		savedGamePath = sgp;
-		savedScoresPath = ssp;
+	public FileManager(Controller gui) throws IOException, ClassNotFoundException{
+		this.gui = gui;
+		savedGamePath = SAVE_PATH;
+		savedScoresPath = SCORE_PATH;
 		scores = new ArrayList<Score>();
 		loadScore();
 	}
@@ -41,8 +52,10 @@ public class FileManager {
 	 * @throws FileNotFoundException When there's an error locating the saved game file. 
 	 */
 	public void saveGame() throws FileNotFoundException{
-		File f = new File(savedGamePath);
 		String gameData = "";
+		List<PacMan> pacmans = gui.getPacmen();
+		//Saves the data.
+		File f = new File(savedGamePath);
 		PrintWriter pw = new PrintWriter(f);
 		pw.print(gameData);
 		pw.close();

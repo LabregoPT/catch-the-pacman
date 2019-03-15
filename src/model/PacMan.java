@@ -1,8 +1,5 @@
 package model;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.Circle;
 import ui.*;
 
 /**
@@ -10,12 +7,13 @@ import ui.*;
  * @author Jhon Edward Mora - Universidad ICESI - A00355710
  * @version 1.0 - March/2019
  */
-public class PacMan extends Arc {
+public class PacMan{
 	
 	private int direction;
 	private boolean alreadyCaught;
 	private int bounces;
-	private Circle eye;
+	private double eyeX;
+	private double eyeY;
 	private double posX;
 	private double posY;
 	
@@ -25,18 +23,15 @@ public class PacMan extends Arc {
 	/**
 	 * Creates a new PacMan and its design.
 	 * @param dir Initial movement direction of the PacMan
-	 * @param x Initial x position of the pacman.
-	 * @param y Initial y position of the pacman.
+	 * @param x Initial x position of the PacMan.
+	 * @param y Initial y position of the PacMan.
 	 */
-	public PacMan(int dir, int x, int y, Controller c) {
-		super(x, y, 40, 40, 45, 270);
-		super.setFill(Color.YELLOW);
-		eye = new Circle(x+15, y-15, 10, Color.BLACK);
+	public PacMan(int dir, double x, double y, Controller c){
 		direction = dir;
-		posX = getLayoutX();
-		posY = getLayoutY();
+		eyeX = x+15;
+		eyeY = y-15;
 		gui = c;
-		gui.draw(this, eye);
+		gui.draw(this);
 	}
 	
 	/**
@@ -61,14 +56,6 @@ public class PacMan extends Arc {
 		}if(direction == 4) {
 			direction = 3;
 		}
-	}
-	
-	/**
-	 * Returns the horizontal size of the PacMan, as it is a semi circle, it should be always the same as two times its radius.
-	 * @return
-	 */
-	public int getSize() {
-		return (int)getRadiusX()*2;
 	}
 	
 	/**
@@ -116,5 +103,45 @@ public class PacMan extends Arc {
 	 */
 	public double getY() {
 		return posY;
+	}
+	
+	/**
+	 * Returns the X position of the eye of this PacMan.
+	 * @return X position + 15 units
+	 */
+	public double getEyeX() {
+		return eyeX;
+	}
+	
+	/**
+	 * Returns the Y position of the eye of this PacMan
+	 * @return Y Position -15 units
+	 */
+	public double getEyeY() {
+		return eyeY;
+	}
+	
+	/**
+	 * Updates the position of this PacMan in the gui
+	 */
+	public void move(int direction) {
+		gui.movePacMan(this, direction);
+		gui.draw(this);
+	}
+	
+	/**
+	 * Updates the value of the x position in this PacMan
+	 * @param x New horizontal position.
+	 */
+	public void setX(double x) {
+		posX = x;
+	}
+	
+	/**
+	 * Updates the value of the y position in this PacMan
+	 * @param y New vertical position.
+	 */
+	public void setY(double y) {
+		posY = y;
 	}
 }
